@@ -13,10 +13,18 @@ float lettersExpectedTotal = 0; //a running total of the number of letters expec
 float errorsTotal = 0; //a running total of the number of errors (when hitting next)
 String currentPhrase = ""; //the current target phrase
 String currentTyped = ""; //what the user has typed so far
-final int DPIofYourDeviceScreen = 200; //you will need to look up the DPI or PPI of your device to make sure you get the right scale!!
+final int DPIofYourDeviceScreen = 254; //you will need to look up the DPI or PPI of your device to make sure you get the right scale!! mine: 254
 //http://en.wikipedia.org/wiki/List_of_displays_by_pixel_density
 final float sizeOfInputArea = DPIofYourDeviceScreen*1; //aka, 1.0 inches square!
 PImage watch;
+PImage abc;
+PImage def;
+PImage ghi;
+PImage jkl;
+PImage mno;
+PImage pqrs;
+PImage tuv;
+PImage wxyz;
 
 //Variables for my silly implementation. You can delete this:
 char currentLetter = 'a';
@@ -25,6 +33,14 @@ char currentLetter = 'a';
 void setup()
 {
   watch = loadImage("watchhand3smaller.png");
+  abc = loadImage("abc.png");
+  def = loadImage("def.png");
+  ghi = loadImage("ghi.png");
+  jkl = loadImage("jkl.png");
+  mno = loadImage("mno.png");
+  pqrs = loadImage("pqrs.png");
+  tuv = loadImage("tuv.png");
+  wxyz = loadImage("wxyz.png");
   phrases = loadStrings("phrases2.txt"); //load the phrase set into memory
   Collections.shuffle(Arrays.asList(phrases), new Random()); //randomize the order of the phrases with no seed
   //Collections.shuffle(Arrays.asList(phrases), new Random(100)); //randomize the order of the phrases with seed 100; same order every time, useful for testing
@@ -42,6 +58,7 @@ void draw()
   drawWatch(); //draw watch background
   fill(100);
   rect(width/2-sizeOfInputArea/2, height/2-sizeOfInputArea/2, sizeOfInputArea, sizeOfInputArea); //input area should be 1" by 1"
+  drawButtons(); //draw keyboard buttons
 
   if (finishTime!=0)
   {
@@ -192,6 +209,30 @@ void nextTrial()
   //currentPhrase = "abc"; // uncomment this to override the test phrase (useful for debugging)
 }
 
+// draws keyboard buttons
+void drawButtons()
+{
+  pushMatrix();
+  translate(width/2, height/2);
+  int leftX = -80;
+  int rightX = 80;
+  int topRowY = -20;
+  int middleRowY = 30;
+  int bottomRowY = 80;
+  image(abc, leftX, topRowY);
+  image(def, 0, topRowY);
+  image(ghi, rightX, topRowY);
+  image(jkl, leftX, middleRowY);
+  image(mno, 0, middleRowY);
+  image(pqrs, rightX, middleRowY);
+  image(tuv, leftX/2, bottomRowY);
+  image(wxyz, rightX/2, bottomRowY);
+  fill(255, 255, 255);
+  ellipse(-100, bottomRowY, 35, 35); //space bar button
+  fill(0, 0, 0);
+  ellipse(100, bottomRowY, 35, 35); //back button
+  popMatrix();
+}
 
 void drawWatch()
 {
