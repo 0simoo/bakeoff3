@@ -117,7 +117,6 @@ boolean didMouseClick(float x, float y, float w, float h) //simple function to d
   return (mouseX > x && mouseX<x+w && mouseY>y && mouseY<y+h); //check to see if it is in button bounds
 }
 
-//my terrible implementation you can entirely replace
 void mousePressed()
 {
   //abc
