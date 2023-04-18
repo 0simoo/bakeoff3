@@ -267,7 +267,8 @@ void mousePressed()
     }
     clicks++;
     lastKeyClicked = 6;
-    currentLetter = '_';
+    //currentLetter = '_';
+    currentTyped+=" ";
   }
   
   //tuv
@@ -326,7 +327,9 @@ void mousePressed()
     }
     clicks++;
     lastKeyClicked = 9;
-    currentLetter = '`';
+    //currentLetter = '`';
+    currentTyped = currentTyped.substring(0, currentTyped.length()-1);
+
   }
   
   /* if (didMouseClick(width/2-sizeOfInputArea/2, height/2-sizeOfInputArea/2+sizeOfInputArea/2, sizeOfInputArea/2, sizeOfInputArea/2)) //check if click in left button
@@ -345,11 +348,11 @@ void mousePressed()
 
   if (didMouseClick(width/2-sizeOfInputArea/2, height/2-sizeOfInputArea/2, sizeOfInputArea, sizeOfInputArea/2-45)) //check if click occured in letter area
   {
-    if (currentLetter=='_') //if underscore, consider that a space bar
-      currentTyped+=" ";
-    else if (currentLetter=='`' & currentTyped.length()>0) //if `, treat that as a delete command
-      currentTyped = currentTyped.substring(0, currentTyped.length()-1);
-    else if (currentLetter!='`') //if not any of the above cases, add the current letter to the typed string
+    //if (currentLetter=='_') //if underscore, consider that a space bar
+    //  currentTyped+=" ";
+    //else if (currentLetter=='`' & currentTyped.length()>0) //if `, treat that as a delete command
+    //  currentTyped = currentTyped.substring(0, currentTyped.length()-1);
+    if (currentLetter!='`') //if not any of the above cases, add the current letter to the typed string
       currentTyped+=currentLetter;
   }
 
