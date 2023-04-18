@@ -99,8 +99,6 @@ void draw()
     fill(255);
     text("NEXT > ", 650, 650); //draw next label
 
-    //fill(255, 0, 0);
-    //rect(width/2-sizeOfInputArea/2+210, height/2-sizeOfInputArea/2+185, 40, 40);
     /* my draw code
     fill(255, 0, 0); //red button
     rect(width/2-sizeOfInputArea/2, height/2-sizeOfInputArea/2+sizeOfInputArea/2, sizeOfInputArea/2, sizeOfInputArea/2); //draw left red button
@@ -124,8 +122,6 @@ void mousePressed()
 {
   //abc
   if (keyClicked() == 0) {
-    print("lastKeyClicked: " + lastKeyClicked + "\n");
-    print("clicks: " + clicks + "\n");
     if (lastKeyClicked != 0 && lastKeyClicked != -1) {
       clicks = 0;
     }
@@ -149,8 +145,6 @@ void mousePressed()
   
   //def
   if (keyClicked() == 1) {
-    print("lastKeyClicked: " + lastKeyClicked + "\n");
-    print("clicks: " + clicks + "\n");
     if (lastKeyClicked != 1 && lastKeyClicked != -1) {
       clicks = 0;
     }
@@ -174,8 +168,6 @@ void mousePressed()
   
   //ghi
   if (keyClicked() == 2) {
-    print("lastKeyClicked: " + lastKeyClicked + "\n");
-    print("clicks: " + clicks + "\n");
     if (lastKeyClicked != 2 && lastKeyClicked != -1) {
       clicks = 0;
     }
@@ -199,8 +191,6 @@ void mousePressed()
   
   //jkl
   if (keyClicked() == 3) {
-    print("lastKeyClicked: " + lastKeyClicked + "\n");
-    print("clicks: " + clicks + "\n");
     if (lastKeyClicked != 3 && lastKeyClicked != -1) {
       clicks = 0;
     }
@@ -224,8 +214,6 @@ void mousePressed()
   
   //mno
   if (keyClicked() == 4) {
-    print("lastKeyClicked: " + lastKeyClicked + "\n");
-    print("clicks: " + clicks + "\n");
     if (lastKeyClicked != 4 && lastKeyClicked != -1) {
       clicks = 0;
     }
@@ -249,8 +237,6 @@ void mousePressed()
   
   //pqrs
   if (keyClicked() == 5) {
-    print("lastKeyClicked: " + lastKeyClicked + "\n");
-    print("clicks: " + clicks + "\n");
     if (lastKeyClicked != 5 && lastKeyClicked != -1) {
       clicks = 0;
     }
@@ -277,8 +263,6 @@ void mousePressed()
   
   //space
   if (keyClicked() == 6) {
-    print("lastKeyClicked: " + lastKeyClicked + "\n");
-    print("clicks: " + clicks + "\n");
     if (lastKeyClicked != 6 && lastKeyClicked != -1) {
       clicks = 0;
     }
@@ -289,8 +273,6 @@ void mousePressed()
   
   //tuv
   if (keyClicked() == 7) {
-    print("lastKeyClicked: " + lastKeyClicked + "\n");
-    print("clicks: " + clicks + "\n");
     if (lastKeyClicked != 7 && lastKeyClicked != -1) {
       clicks = 0;
     }
@@ -314,8 +296,6 @@ void mousePressed()
   
   //wxyz
   if (keyClicked() == 8) {
-    print("lastKeyClicked: " + lastKeyClicked + "\n");
-    print("clicks: " + clicks + "\n");
     if (lastKeyClicked != 8 && lastKeyClicked != -1) {
       clicks = 0;
     }
@@ -342,8 +322,6 @@ void mousePressed()
   
   //backspace
   if (keyClicked() == 9) {
-    print("lastKeyClicked: " + lastKeyClicked + "\n");
-    print("clicks: " + clicks + "\n");
     if (lastKeyClicked != 9 && lastKeyClicked != -1) {
       clicks = 0;
     }
@@ -466,36 +444,6 @@ int keyClicked()
   if (didMouseClick(width/2-sizeOfInputArea/2+130, botY, 75, 45)) return 8; //wxyz
   if (didMouseClick(width/2-sizeOfInputArea/2+210, botY, 40, 40)) return 9; //backspace
   return -1;
-}
-
-boolean clickedABC()
-{
-  return (didMouseClick(width/2-sizeOfInputArea/2+10, height/2-sizeOfInputArea/2+85, 75, 45));
-}
-
-boolean clickedDEF()
-{
-  return (didMouseClick(width/2-sizeOfInputArea/2+90, height/2-sizeOfInputArea/2+85, 75, 45));
-}
-
-boolean clickedGHI()
-{
-  return (didMouseClick(width/2-sizeOfInputArea/2+170, height/2-sizeOfInputArea/2+85, 75, 45));
-}
-
-boolean clickedJKL()
-{
-  return (didMouseClick(width/2-sizeOfInputArea/2+10, height/2-sizeOfInputArea/2+135, 75, 45));
-}
-
-boolean clickedMNO()
-{
-  return (didMouseClick(width/2-sizeOfInputArea/2+90, height/2-sizeOfInputArea/2+135, 75, 45));
-}
-
-boolean clickedPQRS()
-{
-  return (didMouseClick(width/2-sizeOfInputArea/2+170, height/2-sizeOfInputArea/2+135, 75, 45));
 }
 
 // draws keyboard buttons
