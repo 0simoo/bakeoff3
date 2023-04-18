@@ -16,6 +16,9 @@ String currentTyped = ""; //what the user has typed so far
 final int DPIofYourDeviceScreen = 254; //you will need to look up the DPI or PPI of your device to make sure you get the right scale!! mine: 254
 //http://en.wikipedia.org/wiki/List_of_displays_by_pixel_density
 final float sizeOfInputArea = DPIofYourDeviceScreen*1; //aka, 1.0 inches square!
+int clicks = 0; //0-3, indicates how many times you have clicked consecutively on the same key
+int lastKeyClicked = -1; //0-9, keys labeled left to right, top to bottom
+char pendingLetter = 'a'; //most recently entered letter, not yet saved to phrase
 PImage watch;
 PImage abc;
 PImage def;
@@ -96,11 +99,14 @@ void draw()
     fill(255);
     text("NEXT > ", 650, 650); //draw next label
 
-    //my draw code
+    //fill(255, 0, 0);
+    //rect(width/2-sizeOfInputArea/2+210, height/2-sizeOfInputArea/2+185, 40, 40);
+    /* my draw code
     fill(255, 0, 0); //red button
     rect(width/2-sizeOfInputArea/2, height/2-sizeOfInputArea/2+sizeOfInputArea/2, sizeOfInputArea/2, sizeOfInputArea/2); //draw left red button
     fill(0, 255, 0); //green button
     rect(width/2-sizeOfInputArea/2+sizeOfInputArea/2, height/2-sizeOfInputArea/2+sizeOfInputArea/2, sizeOfInputArea/2, sizeOfInputArea/2); //draw right green button
+    */
     textAlign(CENTER);
     fill(200);
     text("" + currentLetter, width/2, height/2-sizeOfInputArea/4); //draw current letter
@@ -116,7 +122,237 @@ boolean didMouseClick(float x, float y, float w, float h) //simple function to d
 //my terrible implementation you can entirely replace
 void mousePressed()
 {
-  if (didMouseClick(width/2-sizeOfInputArea/2, height/2-sizeOfInputArea/2+sizeOfInputArea/2, sizeOfInputArea/2, sizeOfInputArea/2)) //check if click in left button
+  //abc
+  if (keyClicked() == 0) {
+    print("lastKeyClicked: " + lastKeyClicked + "\n");
+    print("clicks: " + clicks + "\n");
+    if (lastKeyClicked != 0 && lastKeyClicked != -1) {
+      clicks = 0;
+    }
+    clicks = clicks%3;
+    clicks++;
+    lastKeyClicked = 0;
+    switch (clicks) {
+      case 1:
+        currentLetter = 'a';
+        break;
+      case 2:
+        currentLetter = 'b';
+        break;
+      case 3:
+        currentLetter = 'c';
+        break;
+      default:
+        currentLetter = '?';
+    }
+  }
+  
+  //def
+  if (keyClicked() == 1) {
+    print("lastKeyClicked: " + lastKeyClicked + "\n");
+    print("clicks: " + clicks + "\n");
+    if (lastKeyClicked != 1 && lastKeyClicked != -1) {
+      clicks = 0;
+    }
+    clicks = clicks%3;
+    clicks++;
+    lastKeyClicked = 1;
+    switch (clicks) {
+      case 1:
+        currentLetter = 'd';
+        break;
+      case 2:
+        currentLetter = 'e';
+        break;
+      case 3:
+        currentLetter = 'f';
+        break;
+      default:
+        currentLetter = '?';
+    }
+  }
+  
+  //ghi
+  if (keyClicked() == 2) {
+    print("lastKeyClicked: " + lastKeyClicked + "\n");
+    print("clicks: " + clicks + "\n");
+    if (lastKeyClicked != 2 && lastKeyClicked != -1) {
+      clicks = 0;
+    }
+    clicks = clicks%3;
+    clicks++;
+    lastKeyClicked = 2;
+    switch (clicks) {
+      case 1:
+        currentLetter = 'g';
+        break;
+      case 2:
+        currentLetter = 'h';
+        break;
+      case 3:
+        currentLetter = 'i';
+        break;
+      default:
+        currentLetter = '?';
+    }
+  }
+  
+  //jkl
+  if (keyClicked() == 3) {
+    print("lastKeyClicked: " + lastKeyClicked + "\n");
+    print("clicks: " + clicks + "\n");
+    if (lastKeyClicked != 3 && lastKeyClicked != -1) {
+      clicks = 0;
+    }
+    clicks = clicks%3;
+    clicks++;
+    lastKeyClicked = 3;
+    switch (clicks) {
+      case 1:
+        currentLetter = 'j';
+        break;
+      case 2:
+        currentLetter = 'k';
+        break;
+      case 3:
+        currentLetter = 'l';
+        break;
+      default:
+        currentLetter = '?';
+    }
+  }
+  
+  //mno
+  if (keyClicked() == 4) {
+    print("lastKeyClicked: " + lastKeyClicked + "\n");
+    print("clicks: " + clicks + "\n");
+    if (lastKeyClicked != 4 && lastKeyClicked != -1) {
+      clicks = 0;
+    }
+    clicks = clicks%3;
+    clicks++;
+    lastKeyClicked = 4;
+    switch (clicks) {
+      case 1:
+        currentLetter = 'm';
+        break;
+      case 2:
+        currentLetter = 'n';
+        break;
+      case 3:
+        currentLetter = 'o';
+        break;
+      default:
+        currentLetter = '?';
+    }
+  }
+  
+  //pqrs
+  if (keyClicked() == 5) {
+    print("lastKeyClicked: " + lastKeyClicked + "\n");
+    print("clicks: " + clicks + "\n");
+    if (lastKeyClicked != 5 && lastKeyClicked != -1) {
+      clicks = 0;
+    }
+    clicks = clicks%4;
+    clicks++;
+    lastKeyClicked = 5;
+    switch (clicks) {
+      case 1:
+        currentLetter = 'p';
+        break;
+      case 2:
+        currentLetter = 'q';
+        break;
+      case 3:
+        currentLetter = 'r';
+        break;
+      case 4:
+        currentLetter = 's';
+        break;
+      default:
+        currentLetter = '?';
+    }
+  }
+  
+  //space
+  if (keyClicked() == 6) {
+    print("lastKeyClicked: " + lastKeyClicked + "\n");
+    print("clicks: " + clicks + "\n");
+    if (lastKeyClicked != 6 && lastKeyClicked != -1) {
+      clicks = 0;
+    }
+    clicks++;
+    lastKeyClicked = 6;
+    currentLetter = '_';
+  }
+  
+  //tuv
+  if (keyClicked() == 7) {
+    print("lastKeyClicked: " + lastKeyClicked + "\n");
+    print("clicks: " + clicks + "\n");
+    if (lastKeyClicked != 7 && lastKeyClicked != -1) {
+      clicks = 0;
+    }
+    clicks = clicks%3;
+    clicks++;
+    lastKeyClicked = 7;
+    switch (clicks) {
+      case 1:
+        currentLetter = 't';
+        break;
+      case 2:
+        currentLetter = 'u';
+        break;
+      case 3:
+        currentLetter = 'v';
+        break;
+      default:
+        currentLetter = '?';
+    }
+  }
+  
+  //wxyz
+  if (keyClicked() == 8) {
+    print("lastKeyClicked: " + lastKeyClicked + "\n");
+    print("clicks: " + clicks + "\n");
+    if (lastKeyClicked != 8 && lastKeyClicked != -1) {
+      clicks = 0;
+    }
+    clicks = clicks%4;
+    clicks++;
+    lastKeyClicked = 8;
+    switch (clicks) {
+      case 1:
+        currentLetter = 'w';
+        break;
+      case 2:
+        currentLetter = 'x';
+        break;
+      case 3:
+        currentLetter = 'y';
+        break;
+      case 4:
+        currentLetter = 'z';
+        break;
+      default:
+        currentLetter = '?';
+    }
+  }
+  
+  //backspace
+  if (keyClicked() == 9) {
+    print("lastKeyClicked: " + lastKeyClicked + "\n");
+    print("clicks: " + clicks + "\n");
+    if (lastKeyClicked != 9 && lastKeyClicked != -1) {
+      clicks = 0;
+    }
+    clicks++;
+    lastKeyClicked = 9;
+    currentLetter = '`';
+  }
+  
+  /* if (didMouseClick(width/2-sizeOfInputArea/2, height/2-sizeOfInputArea/2+sizeOfInputArea/2, sizeOfInputArea/2, sizeOfInputArea/2)) //check if click in left button
   {
     currentLetter --;
     if (currentLetter<'_') //wrap around to z
@@ -128,9 +364,9 @@ void mousePressed()
     currentLetter ++;
     if (currentLetter>'z') //wrap back to space (aka underscore)
       currentLetter = '_';
-  }
+  } */
 
-  if (didMouseClick(width/2-sizeOfInputArea/2, height/2-sizeOfInputArea/2, sizeOfInputArea, sizeOfInputArea/2)) //check if click occured in letter area
+  if (didMouseClick(width/2-sizeOfInputArea/2, height/2-sizeOfInputArea/2, sizeOfInputArea, sizeOfInputArea/2-45)) //check if click occured in letter area
   {
     if (currentLetter=='_') //if underscore, consider that a space bar
       currentTyped+=" ";
@@ -207,6 +443,59 @@ void nextTrial()
   currentTyped = ""; //clear what is currently typed preparing for next trial
   currentPhrase = phrases[currTrialNum]; // load the next phrase!
   //currentPhrase = "abc"; // uncomment this to override the test phrase (useful for debugging)
+}
+
+int keyClicked()
+{
+  float leftX = width/2-sizeOfInputArea/2+10;
+  float midX = width/2-sizeOfInputArea/2+90;
+  float rightX = width/2-sizeOfInputArea/2+170;
+  float topY = height/2-sizeOfInputArea/2+85;
+  float midY = height/2-sizeOfInputArea/2+135;
+  float botY = height/2-sizeOfInputArea/2+185;
+  float w = 75;
+  float h = 45;
+  if (didMouseClick(leftX, topY, w, h)) return 0; //abc
+  if (didMouseClick(midX, topY, w, h)) return 1; //def
+  if (didMouseClick(rightX, topY, w, h)) return 2; //ghi
+  if (didMouseClick(leftX, midY, w, h)) return 3; //jkl
+  if (didMouseClick(midX, midY, w, h)) return 4; //mno
+  if (didMouseClick(rightX, midY, w, h)) return 5; //pqrs
+  if (didMouseClick(width/2-sizeOfInputArea/2+8, botY, 40, 40)) return 6; //space
+  if (didMouseClick(width/2-sizeOfInputArea/2+50, botY, 75, 45)) return 7; //tuv
+  if (didMouseClick(width/2-sizeOfInputArea/2+130, botY, 75, 45)) return 8; //wxyz
+  if (didMouseClick(width/2-sizeOfInputArea/2+210, botY, 40, 40)) return 9; //backspace
+  return -1;
+}
+
+boolean clickedABC()
+{
+  return (didMouseClick(width/2-sizeOfInputArea/2+10, height/2-sizeOfInputArea/2+85, 75, 45));
+}
+
+boolean clickedDEF()
+{
+  return (didMouseClick(width/2-sizeOfInputArea/2+90, height/2-sizeOfInputArea/2+85, 75, 45));
+}
+
+boolean clickedGHI()
+{
+  return (didMouseClick(width/2-sizeOfInputArea/2+170, height/2-sizeOfInputArea/2+85, 75, 45));
+}
+
+boolean clickedJKL()
+{
+  return (didMouseClick(width/2-sizeOfInputArea/2+10, height/2-sizeOfInputArea/2+135, 75, 45));
+}
+
+boolean clickedMNO()
+{
+  return (didMouseClick(width/2-sizeOfInputArea/2+90, height/2-sizeOfInputArea/2+135, 75, 45));
+}
+
+boolean clickedPQRS()
+{
+  return (didMouseClick(width/2-sizeOfInputArea/2+170, height/2-sizeOfInputArea/2+135, 75, 45));
 }
 
 // draws keyboard buttons
