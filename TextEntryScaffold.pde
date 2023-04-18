@@ -367,7 +367,7 @@ void mousePressed()
     //  currentTyped+=" ";
     //else if (currentLetter=='`' & currentTyped.length()>0) //if `, treat that as a delete command
     //  currentTyped = currentTyped.substring(0, currentTyped.length()-1);
-    if (currentLetter!='`') //if not any of the above cases, add the current letter to the typed string
+    if (currentLetter!='`' && currentLetter!='_') //if not any of the above cases, add the current letter to the typed string
       currentTyped+=currentLetter;
   }
 
