@@ -29,12 +29,17 @@ PImage pqrs;
 PImage tuv;
 PImage wxyz;
 
+int submitTimer;
+
 //Variables for my silly implementation. You can delete this:
 char currentLetter = 'a';
 
 //You can modify anything in here. This is just a basic implementation.
 void setup()
 {
+  submitTimer = millis();
+  currentLetter = '_';
+  
   watch = loadImage("watchhand3smaller.png");
   abc = loadImage("abc.png");
   def = loadImage("def.png");
@@ -57,6 +62,13 @@ void setup()
 //You can modify anything in here. This is just a basic implementation.
 void draw()
 {
+  if((millis()-submitTimer > 1000) && currentTyped != null && currentLetter != '_'){
+    currentTyped+=currentLetter;
+    submitTimer = millis();
+    currentLetter = '_';
+  }
+  
+  
   background(255); //clear background
   drawWatch(); //draw watch background
   fill(100);
@@ -119,6 +131,7 @@ boolean didMouseClick(float x, float y, float w, float h) //simple function to d
 
 void mousePressed()
 {
+  submitTimer = millis();
   //abc
   if (keyClicked() == 0) {
     if (lastKeyClicked != 0 && lastKeyClicked != -1) {
@@ -328,7 +341,9 @@ void mousePressed()
     clicks++;
     lastKeyClicked = 9;
     //currentLetter = '`';
-    currentTyped = currentTyped.substring(0, currentTyped.length()-1);
+    if(currentTyped.length()>0){
+      currentTyped = currentTyped.substring(0, currentTyped.length()-1);
+    }
 
   }
   
@@ -407,7 +422,7 @@ void nextTrial()
     System.out.println("WPM w/ penalty: " + (wpm-penalty)); //yes, minus, becuase higher WPM is better
     System.out.println("==================");
 
-    currTrialNum++; //increment by one so this mesage only appears once when all trials are done
+    currTrialNum++; //increment by one so mthis mesage only appears once when all trials are done
     return;
   }
 
@@ -447,6 +462,7 @@ int keyClicked()
   if (didMouseClick(width/2-sizeOfInputArea/2+210, botY, 40, 40)) return 9; //backspace
   return -1;
 }
+
 
 // draws keyboard buttons
 void drawButtons()
