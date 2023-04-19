@@ -30,6 +30,8 @@ PImage tuv;
 PImage wxyz;
 
 int submitTimer;
+char[] closeLetters = {' ',' ',' ',' ',' '};
+char lastLetter;
 
 //Variables for my silly implementation. You can delete this:
 char currentLetter = 'a';
@@ -62,10 +64,13 @@ void setup()
 //You can modify anything in here. This is just a basic implementation.
 void draw()
 {
-  if((millis()-submitTimer > 1000) && currentTyped != null && currentLetter != '_'){
+  setCloseLetters();
+  if((millis()-submitTimer > 500) && currentTyped != null && currentLetter != '_'){
     currentTyped+=currentLetter;
+    lastLetter = currentLetter;
     submitTimer = millis();
     currentLetter = '_';
+    clicks=0;
   }
   
   
@@ -119,7 +124,7 @@ void draw()
     */
     textAlign(CENTER);
     fill(200);
-    text("" + currentLetter, width/2, height/2-sizeOfInputArea/4); //draw current letter
+    text("" + currentLetter, width/2, height/2-90); //draw current letter
   }
 }
 
@@ -282,6 +287,7 @@ void mousePressed()
     lastKeyClicked = 6;
     //currentLetter = '_';
     currentTyped+=" ";
+    lastLetter = currentLetter;
   }
   
   //tuv
@@ -343,9 +349,19 @@ void mousePressed()
     //currentLetter = '`';
     if(currentTyped.length()>0){
       currentTyped = currentTyped.substring(0, currentTyped.length()-1);
+      if (currentTyped.length()>0) {
+        lastLetter = currentTyped.charAt(currentTyped.length()-1);
+      }
+      else lastLetter = '`';
     }
-
   }
+  
+  if (keyClicked() == 20) currentLetter = closeLetters[0];
+  if (keyClicked() == 21) currentLetter = closeLetters[1];
+  if (keyClicked() == 22) currentLetter = closeLetters[2];
+  if (keyClicked() == 23) currentLetter = closeLetters[3];
+  if (keyClicked() == 24) currentLetter = closeLetters[4];
+    
   
   /* if (didMouseClick(width/2-sizeOfInputArea/2, height/2-sizeOfInputArea/2+sizeOfInputArea/2, sizeOfInputArea/2, sizeOfInputArea/2)) //check if click in left button
   {
@@ -353,7 +369,6 @@ void mousePressed()
     if (currentLetter<'_') //wrap around to z
       currentLetter = 'z';
   }
-
   if (didMouseClick(width/2-sizeOfInputArea/2+sizeOfInputArea/2, height/2-sizeOfInputArea/2+sizeOfInputArea/2, sizeOfInputArea/2, sizeOfInputArea/2)) //check if click in right button
   {
     currentLetter ++;
@@ -361,15 +376,17 @@ void mousePressed()
       currentLetter = '_';
   } */
 
-  if (didMouseClick(width/2-sizeOfInputArea/2, height/2-sizeOfInputArea/2, sizeOfInputArea, sizeOfInputArea/2-45)) //check if click occured in letter area
-  {
-    //if (currentLetter=='_') //if underscore, consider that a space bar
-    //  currentTyped+=" ";
-    //else if (currentLetter=='`' & currentTyped.length()>0) //if `, treat that as a delete command
-    //  currentTyped = currentTyped.substring(0, currentTyped.length()-1);
-    if (currentLetter!='`' && currentLetter!='_') //if not any of the above cases, add the current letter to the typed string
-      currentTyped+=currentLetter;
-  }
+  //if (didMouseClick(width/2-sizeOfInputArea/2, height/2-sizeOfInputArea/2, sizeOfInputArea, sizeOfInputArea/2-60)) //check if click occured in letter area
+  //{
+  //  //if (currentLetter=='_') //if underscore, consider that a space bar
+  //  //  currentTyped+=" ";
+  //  //else if (currentLetter=='`' & currentTyped.length()>0) //if `, treat that as a delete command
+  //  //  currentTyped = currentTyped.substring(0, currentTyped.length()-1);
+  //  if (currentLetter!='`' && currentLetter!='_') { //if not any of the above cases, add the current letter to the typed string
+  //    currentTyped+=currentLetter;
+  //    lastLetter = currentLetter;
+  //  }    
+  //}
 
   //You are allowed to have a next button outside the 1" area
   if (didMouseClick(600, 600, 200, 200)) //check if click is in next button
@@ -445,9 +462,9 @@ int keyClicked()
   float leftX = width/2-sizeOfInputArea/2+10;
   float midX = width/2-sizeOfInputArea/2+90;
   float rightX = width/2-sizeOfInputArea/2+170;
-  float topY = height/2-sizeOfInputArea/2+85;
-  float midY = height/2-sizeOfInputArea/2+135;
-  float botY = height/2-sizeOfInputArea/2+185;
+  float topY = height/2-sizeOfInputArea/2+85+15;
+  float midY = height/2-sizeOfInputArea/2+135+15;
+  float botY = height/2-sizeOfInputArea/2+185+15;
   float w = 75;
   float h = 45;
   if (didMouseClick(leftX, topY, w, h)) return 0; //abc
@@ -460,6 +477,15 @@ int keyClicked()
   if (didMouseClick(width/2-sizeOfInputArea/2+50, botY, 75, 45)) return 7; //tuv
   if (didMouseClick(width/2-sizeOfInputArea/2+130, botY, 75, 45)) return 8; //wxyz
   if (didMouseClick(width/2-sizeOfInputArea/2+210, botY, 40, 40)) return 9; //backspace
+  
+  // special letters
+  int tempReturn = 0;
+  if (didMouseClick(leftX,topY-35,30,30)) tempReturn = 20; 
+  if (didMouseClick(leftX + 50,topY-35,30,30)) tempReturn = 21; 
+  if (didMouseClick(leftX + 100,topY-35,30,30)) tempReturn = 22; 
+  if (didMouseClick(leftX + 150,topY-35,30,30)) tempReturn = 23; 
+  if (didMouseClick(leftX + 200,topY-35,30,30)) tempReturn = 24; 
+  if (tempReturn != 0) return tempReturn;
   return -1;
 }
 
@@ -471,9 +497,9 @@ void drawButtons()
   translate(width/2, height/2);
   int leftX = -80;
   int rightX = 80;
-  int topRowY = -20;
-  int middleRowY = 30;
-  int bottomRowY = 80;
+  int topRowY = -20+15;
+  int middleRowY = 30+15;
+  int bottomRowY = 80+15;
   image(abc, leftX, topRowY);
   image(def, 0, topRowY);
   image(ghi, rightX, topRowY);
@@ -482,10 +508,30 @@ void drawButtons()
   image(pqrs, rightX, middleRowY);
   image(tuv, leftX/2, bottomRowY);
   image(wxyz, rightX/2, bottomRowY);
-  fill(255, 255, 255);
+  int offset = -6; // letters aren't perfectly in middle
+  fill(0, 0, 0);
   ellipse(-100, bottomRowY, 35, 35); //space bar button
+  fill(255, 0, 0);
+  text('_', -100, bottomRowY - offset);
   fill(0, 0, 0);
   ellipse(100, bottomRowY, 35, 35); //back button
+  fill(255, 0, 0);
+  text("<<", 100, bottomRowY - offset);
+  
+  // special letters
+  fill(0, 0, 0);
+  rect(-115,-60,30,30); 
+  rect(-65,-60,30,30); 
+  rect(-15,-60,30,30); 
+  rect(35,-60,30,30); 
+  rect(85,-60,30,30); 
+  fill(255, 255, 255);
+  text(closeLetters[0], -100, -45 - offset);
+  text(closeLetters[1], -50, -45 - offset);
+  text(closeLetters[2], 0, -45 - offset);
+  text(closeLetters[3], 50, -45 - offset);
+  text(closeLetters[4], 100, -45 - offset);
+  
   popMatrix();
 }
 
@@ -500,7 +546,125 @@ void drawWatch()
   popMatrix();
 }
 
+void copyToCloseLetters (char[] arr) {
+   for (int i = 0; i < arr.length; i++) {
+      closeLetters[i] = arr[i];
+   }
+}
 
+void setCloseLetters () {
+  switch (lastLetter) {
+      case 'a': {
+        char[] tempCloseLetters = {'r','l','n','t','c'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 'b': {
+        char[] tempCloseLetters = {'i','e','l','a','r'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 'c': {
+        char[] tempCloseLetters = {'e','a','o','h','i'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 'd': {
+        char[] tempCloseLetters = {'a','i','e','o','r'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 'e': {
+        char[] tempCloseLetters = {'d','n','r','s','l'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 'f': {
+        char[] tempCloseLetters = {'l','i','o','e','u'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 'g': {
+        char[] tempCloseLetters = {'i','a','e','r','l'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 'h': {
+        char[] tempCloseLetters = {'a','o','e','i','y'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 'i': {
+        char[] tempCloseLetters = {'t','c','n','s','o'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 'j': {
+        char[] tempCloseLetters = {'e','a','u','o','i'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 'k': {
+        char[] tempCloseLetters = {'o','i','e','a','l'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 'l': {
+        char[] tempCloseLetters = {'y','i','e','a','l'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 'm': {
+        char[] tempCloseLetters = {'o','e','a','i','p'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 'n': {
+        char[] tempCloseLetters = {'i','t','e','o','g'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 'o': {
+        char[] tempCloseLetters = {'p','r','n','u','s'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 'p': {
+        char[] tempCloseLetters = {'a','e','r','h','o'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 'q': {
+        char[] tempCloseLetters = {' ',' ','u',' ',' '};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 'r': {
+        char[] tempCloseLetters = {'o','a','e','i','t'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 's': {
+        char[] tempCloseLetters = {'i','s','t','e','u'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 't': {
+        char[] tempCloseLetters = {'a','i','e','r','o'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 'u': {
+        char[] tempCloseLetters = {'r','s','n','l','m'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 'v': {
+        char[] tempCloseLetters = {'o','i','e','a','u'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 'w': {
+        char[] tempCloseLetters = {'e','i','a','o','h'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 'x': {
+        char[] tempCloseLetters = {'y','a','i','e','o'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 'y': {
+        char[] tempCloseLetters = {'a','s','l','t','c'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      case 'z': {
+        char[] tempCloseLetters = {'i','a','e','o','y'};
+        copyToCloseLetters(tempCloseLetters);
+        break; }
+      default: {
+        char[] tempCloseLetters = {' ',' ',' ',' ',' '}; 
+        copyToCloseLetters(tempCloseLetters);
+      }
+    }
+  
+}
 
 
 
