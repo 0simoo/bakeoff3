@@ -448,8 +448,10 @@ void nextTrial()
     System.out.println("Trials beginning! Starting timer..."); //output we're done
     startTime = millis(); //start the timer!
   } 
-  else
+  else {
     currTrialNum++; //increment trial number
+    lastLetter = currentLetter;
+  }
 
   lastTime = millis(); //record the time of when this trial ended
   currentTyped = ""; //clear what is currently typed preparing for next trial
