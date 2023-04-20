@@ -3,7 +3,7 @@ import java.util.Collections;
 import java.util.Random;
 
 String[] phrases; //contains all of the phrases
-int totalTrialNum = 2; //the total number of phrases to be tested - set this low for testing. Might be ~10 for the real bakeoff!
+int totalTrialNum = 2 + (int)random(2); //the total number of phrases to be tested - set this low for testing. Might be ~10 for the real bakeoff!
 int currTrialNum = 0; // the current trial number (indexes into trials array above)
 float startTime = 0; // time starts when the first letter is entered
 float finishTime = 0; // records the time of when the final trial ends
